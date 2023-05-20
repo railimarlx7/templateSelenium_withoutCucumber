@@ -1,4 +1,4 @@
-package Test;
+package testRunner;
 
 import driverFactory.DriverFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -7,40 +7,45 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginAutomationTest {
 
     private static WebDriver driver;
-    private static final String URL = "https://practicetestautomation.com/practice-test-login/";
+    private static String url;
+    private static String username;
+    private static String password;
 
     @BeforeAll
     static void setup() {
+        // Obter as informações do arquivo de configuração
+        url = ConfigReader.getUrl();
+        username = ConfigReader.getUsername();
+        password = ConfigReader.getPassword();
 
         // Configurar e inicializar o driver
         driver = DriverFactory.createDriver();
 
         // Navegar para a URL
-        driver.get(URL);
+        driver.get(url);
     }
 
     @AfterAll
     static void tearDown() {
-
         // Encerrar o driver
         DriverFactory.quitDriver();
     }
 
     @Test
     public void testLogin() {
-
         // Instanciar a página de login
         LoginPage loginPage = new LoginPage(driver);
 
         // Preencher os campos de login e senha
-        loginPage.enterUsername("student");
-        loginPage.enterPassword("Password123");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
 
         // Clicar no botão de login e redirecionar para a página inicial
         HomePage homePage = loginPage.clickSubmitButton();
@@ -52,4 +57,5 @@ public class LoginAutomationTest {
         assertEquals("Congratulations student. You successfully logged in!", successMessage,
                 "Mensagem de sucesso incorreta");
     }
+
 }

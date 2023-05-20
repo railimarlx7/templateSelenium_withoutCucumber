@@ -1,1 +1,3 @@
 driverFactory\DriverFactory.class
+testRunner\LoginAutomationTest.class
+utils\ConfigReader.class
