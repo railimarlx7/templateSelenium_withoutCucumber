@@ -23,7 +23,7 @@ public class LoginAutomationTest {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         driver = new ChromeDriver(options);
 
